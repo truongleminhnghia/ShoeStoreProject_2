@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "cart")
+//@Table(name = "cart")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,9 +28,4 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems = new ArrayList<>();
-
-    public Cart(User user, List<CartItem> cartItems) {
-        this.user = user;
-        this.cartItems = cartItems;
-    }
 }

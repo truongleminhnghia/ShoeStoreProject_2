@@ -56,20 +56,5 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
-    public Order(String fullName, String phoneShipping, String addressShipping,
-                 int quantity, LocalDateTime orderDate, EnumOrderStatus status,
-                 Double totalAmount, String reason, String note, User user,
-                 List<OrderDetail> orderDetails) {
-        this.fullName = fullName;
-        this.phoneShipping = phoneShipping;
-        this.addressShipping = addressShipping;
-        this.quantity = quantity;
-        this.orderDate = orderDate;
-        this.status = status;
-        this.totalAmount = totalAmount;
-        this.reason = reason;
-        this.note = note;
-        this.user = user;
-        this.orderDetails = orderDetails;
-    }
+
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "role")
+//@Table(name = "role")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -29,13 +29,4 @@ public class Role {
     @JsonBackReference
     @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
-
-    public Role(EnumRoleName roleName, List<User> users) {
-        this.roleName = roleName;
-        this.users = users;
-    }
-
-    public Role(EnumRoleName roleName) {
-        this.roleName = roleName;
-    }
 }

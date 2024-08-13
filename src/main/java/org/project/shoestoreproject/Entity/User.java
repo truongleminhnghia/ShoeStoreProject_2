@@ -11,7 +11,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "user")
+//@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -53,27 +53,11 @@ public class User extends BaseEntity{
     private Role role;
 
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean isActive;
 
     @OneToMany(mappedBy = "user")
     private List<Feedback> feedbacks = new ArrayList<>();
 
     @Transient
     private String roleName;
-
-    public User(String userName, String fisrtName, String lastName, String email, String password,
-                String phoneNumber, LocalDate birthDate, String address, Role role, boolean isActive,
-                String roleName) {
-        this.userName = userName;
-        this.fisrtName = fisrtName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.address = address;
-        this.role = role;
-        this.isActive = isActive;
-        this.roleName = roleName;
-    }
 }

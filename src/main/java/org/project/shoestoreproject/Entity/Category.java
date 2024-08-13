@@ -5,7 +5,7 @@ import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "category")
+//@Table(name = "category")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,8 +20,4 @@ public class Category extends BaseEntity {
 
     @Column(name = "category_name", nullable = false, columnDefinition = "NVARCHAR(250)")
     private String categoryName;
-
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
-    }
 }

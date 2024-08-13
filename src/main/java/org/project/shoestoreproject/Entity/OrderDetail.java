@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "order_detail")
+//@Table(name = "order_detail")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,11 +33,4 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
-
-    public OrderDetail(int quantity, double price, Order order, Product product) {
-        this.quantity = quantity;
-        this.price = price;
-        this.order = order;
-        this.product = product;
-    }
 }

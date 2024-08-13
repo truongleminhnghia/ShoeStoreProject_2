@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "feedback")
+//@Table(name = "feedback")
 @Getter
 @Setter
 @NoArgsConstructor

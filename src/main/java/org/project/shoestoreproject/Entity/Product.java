@@ -9,7 +9,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "product")
+//@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,7 +41,7 @@ public class Product extends BaseEntity {
     private int stockQuantity;
 
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -55,21 +55,4 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product")
     private List<Feedback> feedbacks = new ArrayList<>();
-
-
-    public Product(LocalDateTime createAt, LocalDateTime updateAt, String productName, double price,
-                   String description, String color, String brand, int stockQuantity, boolean isActive,
-                   Category category, List<Image> images, List<Size> sizes) {
-        super(createAt, updateAt);
-        this.productName = productName;
-        this.price = price;
-        this.description = description;
-        this.color = color;
-        this.brand = brand;
-        this.stockQuantity = stockQuantity;
-        this.isActive = isActive;
-        this.category = category;
-        this.images = images;
-        this.sizes = sizes;
-    }
 }
