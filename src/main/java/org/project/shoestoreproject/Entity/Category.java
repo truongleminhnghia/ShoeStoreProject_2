@@ -20,4 +20,7 @@ public class Category extends BaseEntity {
 
     @Column(name = "category_name", nullable = false, columnDefinition = "NVARCHAR(250)")
     private String categoryName;
+
+    @Column(name = "is_active")
+    private boolean isActive = true;
 }

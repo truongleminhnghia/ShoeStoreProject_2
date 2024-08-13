@@ -53,7 +53,7 @@ public class User extends BaseEntity{
     private Role role;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @OneToMany(mappedBy = "user")
     private List<Feedback> feedbacks = new ArrayList<>();

@@ -41,7 +41,7 @@ public class Product extends BaseEntity {
     private int stockQuantity;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
