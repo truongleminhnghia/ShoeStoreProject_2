@@ -32,7 +32,7 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new ObjectRespone("Success","Create new category success",newCategory));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ObjectRespone("Failed", "Message" + e.getMessage(),null));
         }
     }

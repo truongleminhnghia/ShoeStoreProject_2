@@ -1,5 +1,6 @@
 package org.project.shoestoreproject.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Size {
     @Column(name = "quantity")
     private int quantity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
