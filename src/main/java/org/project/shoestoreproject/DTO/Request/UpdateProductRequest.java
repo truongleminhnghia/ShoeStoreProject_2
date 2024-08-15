@@ -16,6 +16,5 @@ public class UpdateProductRequest {
     private String color;
     private String band;
     private double price;
-    private int quantity;
     private List<SizeRequest> sizeRequests;
 }

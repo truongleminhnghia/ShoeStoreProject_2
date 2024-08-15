@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SizeServiceImp implements SizeService {
@@ -65,39 +68,35 @@ public class SizeServiceImp implements SizeService {
 
     @Override
     public void update(int productId, List<SizeRequest> sizes) {
-        try {
-            Product productExisting = productRepository.findById(productId)
-                    .orElseThrow(() -> new RuntimeException("Product not found"));
-            List<Size> sizeByProduct = sizeRepository.findByProduct(productId);
-            for (Size size : sizeByProduct) {
-                boolean found = false;
-                for (SizeRequest sizeRequest : sizes) {
-                    if (sizeRequest.getSizeValue() == size.getSizeValue()) {
-                        size.setQuantity(sizeRequest.getQuantity());
-                        found = true;
-                        break; // Exit the inner loop once a match is found
-                    }
-                }
-                if (!found) {
-                    sizeRepository.delete(size); // Optionally delete sizes not in the request
-                } else {
-                    sizeRepository.save(size); // Save the updated size
-                }
+        // Find existing product or throw an exception
+        Product productExisting = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        // Fetch current sizes from the database for the product
+        List<Size> sizeByProduct = sizeRepository.findByProduct(productId);
+        // Create maps for efficient lookup
+        Map<Integer, Size> sizeByValueMap = sizeByProduct.stream()
+                .collect(Collectors.toMap(Size::getSizeValue, size -> size));
+        // Iterate through the sizes from the request and update existing sizes
+        for (SizeRequest sizeRequest : sizes) {
+            Size existingSize = sizeByValueMap.get(sizeRequest.getSizeValue());
+            if (existingSize != null) {
+                existingSize.setQuantity(existingSize.getQuantity() + sizeRequest.getQuantity());
+            } else {
+                // Create new size if it doesn't exist
+                Size newSize = new Size();
+                newSize.setSizeValue(sizeRequest.getSizeValue());
+                newSize.setQuantity(sizeRequest.getQuantity());
+                newSize.setProduct(productExisting);
+                sizeByProduct.add(newSize); // Add to the list
             }
-            for (SizeRequest sizeRequest : sizes) {
-                boolean exists = sizeByProduct.stream()
-                        .anyMatch(size -> size.getSizeValue() == sizeRequest.getSizeValue());
-                if (!exists) {
-                    Size newSize = new Size();
-                    newSize.setSizeValue(sizeRequest.getSizeValue());
-                    newSize.setQuantity(sizeRequest.getQuantity());
-                    newSize.setProduct(productExisting);
-                    sizeRepository.save(newSize);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        // Delete sizes that are not in the request list
+        Set<Integer> sizeValuesFromRequest = sizes.stream()
+                .map(SizeRequest::getSizeValue)
+                .collect(Collectors.toSet());
+        sizeByProduct.removeIf(size -> !sizeValuesFromRequest.contains(size.getSizeValue()));
+        // Save all changes in bulk
+        sizeRepository.saveAll(sizeByProduct);
     }
 
     @Override

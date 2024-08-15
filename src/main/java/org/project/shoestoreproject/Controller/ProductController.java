@@ -174,12 +174,19 @@ public class ProductController {
             Product productExisting = productService.getProductByProductId(productId);
             if(productExisting == null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ObjectRespone("Failed", "product not exist", null));
-            productExisting.setProductName(productRequest.getProductName());
-            productExisting.setColor(productRequest.getColor());
-            productExisting.setBrand(productRequest.getBand());
-            productExisting.setPrice(productRequest.getPrice());
-            productExisting.setStockQuantity(productExisting.getStockQuantity() + productRequest.getQuantity());
-            sizeService.update(productExisting.getProductId(), productRequest.getSizeRequests());
+            if(productRequest.getProductName() != null)
+                productExisting.setProductName(productRequest.getProductName());
+            if(productRequest.getColor() != null)
+                productExisting.setColor(productRequest.getColor());
+            if(productRequest.getBand() != null)
+                productExisting.setBrand(productRequest.getBand());
+            if(productRequest.getPrice() > 0.0)
+                productExisting.setPrice(productRequest.getPrice());
+            if(productService.getQuantity(productRequest.getSizeRequests()) > 0)
+                productExisting.setStockQuantity(productExisting.getStockQuantity()
+                        + productService.getQuantity(productRequest.getSizeRequests()));
+            if(productRequest.getSizeRequests() != null || !productRequest.getSizeRequests().isEmpty())
+                sizeService.update(productExisting.getProductId(), productRequest.getSizeRequests());
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new  ObjectRespone("Success", "Update product successfully ", productExisting));
         } catch (Exception e) {
