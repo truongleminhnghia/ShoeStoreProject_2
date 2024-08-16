@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 
 public class User extends BaseEntity{
 
@@ -60,4 +63,17 @@ public class User extends BaseEntity{
 
     @Transient
     private String roleName;
+
+    public User(String userName,String fisrtName, String email, String lastName, String password,
+                String phoneNumber, LocalDate birthDate, String address, Role role) {
+        this.userName = userName;
+        this.fisrtName = fisrtName;
+        this.email = email;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.address = address;
+        this.role = role;
+    }
 }
