@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 public class CustomUserDetail implements UserDetails {
 
+    private String userId;
     private String userName;
     private String password;
     private Collection<GrantedAuthority> grantedAuthorities;
@@ -29,6 +30,7 @@ public class CustomUserDetail implements UserDetails {
         roles.add(simpleGrantedAuthority);
 
         CustomUserDetail customUserDetail = CustomUserDetail.builder()
+                .userId(user.getUserId())
                 .userName(user.getUserName())
                 .password(user.getPassword())
                 .grantedAuthorities(roles)

@@ -46,6 +46,7 @@ public class JWTToken {
                 .subject(customUserDetail.getUsername())
                 .issuedAt(date)
                 .expiration(exp)
+                .claim("userId", customUserDetail.getUserId())
                 .claim("username", customUserDetail.getUsername())
                 .claim("password", customUserDetail.getPassword())
                 .claim("role", customUserDetail.getGrantedAuthorities())
@@ -53,7 +54,7 @@ public class JWTToken {
                 .compact();
     }
 
-    public String getEmailFromJwt(String token) {
+    public String getUserNameFromJwt(String token) {
         return getClaims(token, Claims::getSubject);
     }
 
@@ -62,7 +63,7 @@ public class JWTToken {
                 Jwts.parser().verifyWith(SCRET_KEY).build().parseSignedClaims(token).getPayload());
     }
     public boolean validate(String token) {
-        if(getEmailFromJwt(token) != null && !isExpired(token) && !listToken.isListToken(token)) {
+        if(getUserNameFromJwt(token) != null && !isExpired(token) && !listToken.isListToken(token)) {
             return true;
         }
         return false;
