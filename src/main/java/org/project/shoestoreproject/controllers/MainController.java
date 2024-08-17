@@ -8,12 +8,15 @@ import org.project.shoestoreproject.configs.CustomUserDetail;
 import org.project.shoestoreproject.dto.requests.UserLogin;
 import org.project.shoestoreproject.dto.requests.UserRegister;
 import org.project.shoestoreproject.dto.respones.ObjectRespone;
+import org.project.shoestoreproject.dto.respones.ProductRespone;
 import org.project.shoestoreproject.dto.respones.TokenResponse;
+import org.project.shoestoreproject.entities.Product;
 import org.project.shoestoreproject.entities.Role;
 import org.project.shoestoreproject.entities.User;
 import org.project.shoestoreproject.enums.EnumRoleName;
 import org.project.shoestoreproject.jwt.JWTToken;
 import org.project.shoestoreproject.logout.ListToken;
+import org.project.shoestoreproject.services.ProductService;
 import org.project.shoestoreproject.services.RoleService;
 import org.project.shoestoreproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -41,6 +46,7 @@ public class MainController {
 
     @Autowired private UserService userService;
     @Autowired private RoleService roleService;
+    @Autowired private ProductService productService;
     @Autowired private JWTToken jwtToken;
     @Autowired private AuthenticationManager authenticationManager;
     @Autowired private ListToken listToken;
@@ -112,7 +118,7 @@ public class MainController {
 
 //    @PostMapping("/login")
 //    public ResponseEntity<TokenResponse> loginPage(@Valid @RequestBody UserLogin userLogin) {
-//        try {
+//        try {z
 ////            String gRecaptchaResponse = userLogin.getRecaptchaResponse();
 ////            boolean check_captcha = userService.verifyRecaptcha(gRecaptchaResponse);
 ////            if(check_captcha) {
@@ -163,4 +169,83 @@ public class MainController {
 //                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new TokenResponse("Failed", "Your username isn't exist. Please register it", null));
 //        }
 //    }
+
+
+
+    @GetMapping("/get_all")
+    public ResponseEntity<ObjectRespone> getAllProducts() {
+        try {
+            List<Product> list = productService.getAllProduct();
+            if(list.isEmpty() || list == null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new  ObjectRespone("Failed", "Product list is empty", null));
+            List<ProductRespone> productResponeList = new ArrayList<>();
+            for (Product product : list) {
+                ProductRespone productRespone = productService.convertToProductRespone(product);
+                productResponeList.add(productRespone);
+            }
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new  ObjectRespone("Success", "Product list ", productResponeList));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
+        }
+    }
+    @GetMapping("/get_all_true")
+    public ResponseEntity<ObjectRespone> getAllTrue() {
+        try {
+            List<Product> list = productService.getAllTrue();
+            if(list == null || list.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new  ObjectRespone("Failed", "Product list is empty", null));
+            }
+            List<ProductRespone> productResponeList = new ArrayList<>();
+            for (Product product : list) {
+                ProductRespone productRespone = productService.convertToProductRespone(product);
+                productResponeList.add(productRespone);
+            }
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new  ObjectRespone("Success", "Product list ", productResponeList));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/categpry_name/{categpry_name}")
+    public ResponseEntity<ObjectRespone> getByCategory(@PathVariable("categpry_name") String categoryName) {
+        try {
+            List<Product> products = productService.getByCategory(categoryName);
+            if(products == null || products.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new  ObjectRespone("Failed", "Product list is empty", null));
+            }
+            List<ProductRespone> productResponeList = new ArrayList<>();
+            for (Product product : products) {
+                ProductRespone productRespone = productService.convertToProductRespone(product);
+                productResponeList.add(productRespone);
+            }
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new  ObjectRespone("Success", "Product list ", productResponeList));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("/product/{product_Id}")
+    public ResponseEntity<ObjectRespone> getProductById(@PathVariable("product_Id") int productId) {
+        try {
+            Product productExisting = productService.getProductByProductId(productId);
+            if(productExisting == null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new  ObjectRespone("Failed", "Product not exist", null));
+            ProductRespone productRespone = productService.convertToProductRespone(productExisting);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new  ObjectRespone("Success", "Product with ID: " + productId, productRespone));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
+        }
+    }
+
 }

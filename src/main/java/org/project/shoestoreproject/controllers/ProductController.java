@@ -15,6 +15,7 @@ import org.project.shoestoreproject.services.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class ProductController {
     @Autowired private SizeService sizeService;
     @Autowired private ImageService imageService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create_product")
     public ResponseEntity<ObjectRespone> createProduct(@RequestBody CreationProductRequest creationProductRequest) {
         try {
@@ -68,62 +70,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get_all")
-    public ResponseEntity<ObjectRespone> getAllProducts() {
-        try {
-            List<Product> list = productService.getAllProduct();
-            if(list.isEmpty() || list == null)
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new  ObjectRespone("Failed", "Product list is empty", null));
-            List<ProductRespone> productResponeList = new ArrayList<>();
-            for (Product product : list) {
-                ProductRespone productRespone = productService.convertToProductRespone(product);
-                productResponeList.add(productRespone);
-            }
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new  ObjectRespone("Success", "Product list ", productResponeList));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
-        }
-    }
-
-    @GetMapping("/product/{product_Id}")
-    public ResponseEntity<ObjectRespone> getProductById(@PathVariable("product_Id") int productId) {
-        try {
-            Product productExisting = productService.getProductByProductId(productId);
-            if(productExisting == null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new  ObjectRespone("Failed", "Product not exist", null));
-            ProductRespone productRespone = productService.convertToProductRespone(productExisting);
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new  ObjectRespone("Success", "Product with ID: " + productId, productRespone));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
-        }
-    }
-
-    @GetMapping("/get_all_true")
-    public ResponseEntity<ObjectRespone> getAllTrue() {
-        try {
-            List<Product> list = productService.getAllTrue();
-            if(list == null || list.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new  ObjectRespone("Failed", "Product list is empty", null));
-            }
-            List<ProductRespone> productResponeList = new ArrayList<>();
-            for (Product product : list) {
-                ProductRespone productRespone = productService.convertToProductRespone(product);
-                productResponeList.add(productRespone);
-            }
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new  ObjectRespone("Success", "Product list ", productResponeList));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
-        }
-    }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get_all_false")
     public ResponseEntity<ObjectRespone> getAllFalse() {
         try {
@@ -145,27 +92,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/categpry_name/{categpry_name}")
-    public ResponseEntity<ObjectRespone> getByCategory(@PathVariable("categpry_name") String categoryName) {
-        try {
-            List<Product> products = productService.getByCategory(categoryName);
-            if(products == null || products.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new  ObjectRespone("Failed", "Product list is empty", null));
-            }
-            List<ProductRespone> productResponeList = new ArrayList<>();
-            for (Product product : products) {
-                ProductRespone productRespone = productService.convertToProductRespone(product);
-                productResponeList.add(productRespone);
-            }
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new  ObjectRespone("Success", "Product list ", productResponeList));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ObjectRespone("Failed", "Message: " + e.getMessage(), null));
-        }
-    }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update_product/{product_id}")
     public ResponseEntity<ObjectRespone> updateProduct(
             @PathVariable("product_id") int productId,
@@ -195,6 +122,7 @@ public class ProductController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/status/{product_Id}")
     public ResponseEntity<ObjectRespone> changeProductStatus(@PathVariable("product_Id") int productId) {
         try {
