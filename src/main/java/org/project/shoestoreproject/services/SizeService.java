@@ -2,8 +2,8 @@ package org.project.shoestoreproject.services;
 
 import org.project.shoestoreproject.dto.requests.SizeRequest;
 import org.project.shoestoreproject.dto.respones.SizeRespone;
-import org.project.shoestoreproject.entitíes.Product;
-import org.project.shoestoreproject.entitíes.Size;
+import org.project.shoestoreproject.entities.Product;
+import org.project.shoestoreproject.entities.Size;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.services;
 
-import org.project.shoestoreproject.entitíes.Image;
+import org.project.shoestoreproject.entities.Image;
 import org.project.shoestoreproject.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

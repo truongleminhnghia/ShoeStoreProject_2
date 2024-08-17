@@ -1,4 +1,4 @@
-package org.project.shoestoreproject.entitíes;
+package org.project.shoestoreproject.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

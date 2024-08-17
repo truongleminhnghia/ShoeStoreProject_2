@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.services;
 
-import org.project.shoestoreproject.entitíes.Category;
+import org.project.shoestoreproject.entities.Category;
 
 import java.util.List;
 

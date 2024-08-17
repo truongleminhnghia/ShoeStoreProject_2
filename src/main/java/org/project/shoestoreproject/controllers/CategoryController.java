@@ -3,11 +3,12 @@ package org.project.shoestoreproject.controllers;
 import org.project.shoestoreproject.dto.requests.CreationCategoryRequest;
 import org.project.shoestoreproject.dto.respones.CategoryRespone;
 import org.project.shoestoreproject.dto.respones.ObjectRespone;
-import org.project.shoestoreproject.entitíes.Category;
+import org.project.shoestoreproject.entities.Category;
 import org.project.shoestoreproject.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,10 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/shoeStoreProject/categories")
+@CrossOrigin(origins = "*")
 public class CategoryController {
 
     @Autowired private CategoryService categoryService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create_category")
     public ResponseEntity<ObjectRespone> createCategory(@RequestBody CreationCategoryRequest categoryRequest) {
         Category newCategory = new Category();
@@ -37,6 +40,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get_all")
     public ResponseEntity<ObjectRespone> getAllCategory() {
         try {
@@ -60,6 +64,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<ObjectRespone> getCategoryById(@PathVariable("categoryId") int categoryId) {
         try {
@@ -78,6 +83,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/category_name/{categoryName}")
     public ResponseEntity<ObjectRespone> getCategoryByName(@PathVariable("categoryName") String categoryName) {
         try {
@@ -95,6 +101,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list_category/{categoryName}")
     public ResponseEntity<ObjectRespone> getCategoryList(@PathVariable("categoryName") String categoryName) {
         try {
@@ -118,6 +125,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update_category/{catgegoryId}")
     public ResponseEntity<ObjectRespone> updateCategory(@PathVariable("catgegoryId") int categoryId, @RequestBody CreationCategoryRequest categoryRequest) {
         try {
@@ -133,6 +141,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete_category/{categoryId}")
     public ResponseEntity<ObjectRespone> deleteCategory(@PathVariable("categoryId") int categoryId) {
         try {
@@ -152,6 +161,7 @@ public class CategoryController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get_all_true")
     public ResponseEntity<ObjectRespone> getAllStatusTrue() {
         try {

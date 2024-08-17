@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.services;
 
-import org.project.shoestoreproject.entitíes.Role;
+import org.project.shoestoreproject.entities.Role;
 import org.project.shoestoreproject.enums.EnumRoleName;
 
 import java.util.List;

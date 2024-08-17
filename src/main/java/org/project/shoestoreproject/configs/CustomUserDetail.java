@@ -3,8 +3,8 @@ package org.project.shoestoreproject.configs;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.project.shoestoreproject.entitíes.Role;
-import org.project.shoestoreproject.entitíes.User;
+import org.project.shoestoreproject.entities.Role;
+import org.project.shoestoreproject.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +31,7 @@ public class CustomUserDetail implements UserDetails {
         CustomUserDetail customUserDetail = CustomUserDetail.builder()
                 .userName(user.getUserName())
                 .password(user.getPassword())
+                .grantedAuthorities(roles)
                 .build();
         return customUserDetail;
     }

@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.services;
 
-import org.project.shoestoreproject.entitíes.User;
+import org.project.shoestoreproject.entities.User;
 
 public interface UserService {
     public void save(User user);

@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.repositories;
 
-import org.project.shoestoreproject.entitíes.User;
+import org.project.shoestoreproject.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

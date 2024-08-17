@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.services;
 
-import org.project.shoestoreproject.entitíes.Image;
+import org.project.shoestoreproject.entities.Image;
 
 public interface ImageService {
     Image saveImage(String imageUrl, int productId);

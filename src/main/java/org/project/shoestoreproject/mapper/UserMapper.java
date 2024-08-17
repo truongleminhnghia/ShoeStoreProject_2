@@ -1,8 +1,8 @@
 package org.project.shoestoreproject.mapper;
 
 import org.project.shoestoreproject.configs.CustomUserDetail;
-import org.project.shoestoreproject.entitíes.Role;
-import org.project.shoestoreproject.entitíes.User;
+import org.project.shoestoreproject.entities.Role;
+import org.project.shoestoreproject.entities.User;
 import org.project.shoestoreproject.enums.EnumRoleName;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;

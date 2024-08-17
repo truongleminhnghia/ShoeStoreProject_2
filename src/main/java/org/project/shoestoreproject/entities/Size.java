@@ -1,6 +1,6 @@
-package org.project.shoestoreproject.entitíes;
+package org.project.shoestoreproject.entities;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -8,29 +8,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-//@Table(name = "order_detail")
+//@Table(name = "size")
 @Getter
 @Setter
 @NoArgsConstructor
 @Data
-public class OrderDetail {
-
+public class Size {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_detail_id")
-    private int orderDetailId;
+    @Column(name = "size_id")
+    private int sizeID;
+
+    @Column(name = "size_value")
+    private int sizeValue;
 
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "price")
-    private double price;
-
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "orderId")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 }

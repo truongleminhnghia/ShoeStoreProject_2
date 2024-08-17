@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.repositories;
 
-import org.project.shoestoreproject.entitíes.Category;
+import org.project.shoestoreproject.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

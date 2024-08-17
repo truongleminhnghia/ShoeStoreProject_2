@@ -1,7 +1,7 @@
 package org.project.shoestoreproject.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.project.shoestoreproject.entitíes.Category;
+import org.project.shoestoreproject.entities.Category;
 import org.project.shoestoreproject.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

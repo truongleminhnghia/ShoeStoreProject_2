@@ -1,6 +1,6 @@
 package org.project.shoestoreproject.repositories;
 
-import org.project.shoestoreproject.entitíes.Size;
+import org.project.shoestoreproject.entities.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
