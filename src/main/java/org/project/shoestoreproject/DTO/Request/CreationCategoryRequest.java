@@ -1,5 +1,7 @@
 package org.project.shoestoreproject.DTO.Request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Setter
@@ -9,5 +11,8 @@ import lombok.*;
 @Data
 
 public class CreationCategoryRequest {
+
+    @NotNull(message = "Category name must not be null.")
+    @NotBlank(message = "Category name must not be blank.")
     private String categoryName;
 }

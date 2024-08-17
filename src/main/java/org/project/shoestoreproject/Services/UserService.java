@@ -7,4 +7,5 @@ public interface UserService {
     public User getUserByID(String userID);
     public User getUserByEmail(String email);
     public boolean getUserByPhone(String phone);
+    public User getUserByUsername(String username);
 }

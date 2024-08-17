@@ -32,4 +32,9 @@ public class UserServiceImp implements UserService {
     public boolean getUserByPhone(String phone) {
         return false;
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUserName(username);
+    }
 }
