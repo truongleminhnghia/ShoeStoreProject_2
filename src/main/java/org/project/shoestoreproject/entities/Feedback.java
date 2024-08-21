@@ -31,6 +31,9 @@ public class Feedback {
     @Column(name = "feedback_date")
     private LocalDateTime feedbackDate;
 
+    @Column(name = "í_read")
+    private boolean isRead = false;
+
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
