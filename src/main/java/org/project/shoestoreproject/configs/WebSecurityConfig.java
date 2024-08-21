@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -41,7 +42,7 @@ public class WebSecurityConfig {
         return new JWTAuthenticationFilter();
     }
 
-    private final String[] REQUEST_PUBLIC = {"/login/**", "/verify/**"};
+    private final String[] REQUEST_PUBLIC = {"/login/**", "/verify/**", "/swagger-ui/**"};
 
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -72,7 +73,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) ->
                         auth.
-                                requestMatchers("/public/**").permitAll()
+                                requestMatchers("/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/ues", "/*").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(m -> m.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

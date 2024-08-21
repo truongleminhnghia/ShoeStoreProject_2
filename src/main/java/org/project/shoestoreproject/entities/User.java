@@ -16,7 +16,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
 
 public class User extends BaseEntity{
@@ -59,9 +58,6 @@ public class User extends BaseEntity{
 
     @OneToMany(mappedBy = "user")
     private List<Feedback> feedbacks = new ArrayList<>();
-
-    @Transient
-    private String roleName;
 
     public User(String userName,String fisrtName, String email, String lastName, String password,
                 String phoneNumber, LocalDate birthDate, String address, Role role) {

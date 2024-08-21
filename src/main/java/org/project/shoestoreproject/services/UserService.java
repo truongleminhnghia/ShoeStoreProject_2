@@ -8,4 +8,5 @@ public interface UserService {
     public User getUserByEmail(String email);
     public boolean getUserByPhone(String phone);
     public User getUserByUsername(String username);
+    public boolean updateUser(User user);
 }

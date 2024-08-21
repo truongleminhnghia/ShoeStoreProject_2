@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-@Data
 
 
 public class Role {

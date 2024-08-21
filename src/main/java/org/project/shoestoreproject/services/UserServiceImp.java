@@ -20,7 +20,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUserByID(String userID) {
-        return userRepository.getUserByUserID(userID);
+        return userRepository.findById(userID).orElseThrow(() -> new RuntimeException("User Not Found"));
     }
 
     @Override
@@ -37,4 +37,10 @@ public class UserServiceImp implements UserService {
     public User getUserByUsername(String username) {
         return userRepository.findByUserName(username);
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        return userRepository.save(user) != null;
+    }
+
 }
