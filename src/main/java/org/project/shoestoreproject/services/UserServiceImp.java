@@ -1,5 +1,6 @@
 package org.project.shoestoreproject.services;
 
+import org.project.shoestoreproject.dto.respones.UserRespone;
 import org.project.shoestoreproject.entities.User;
 import org.project.shoestoreproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,21 @@ public class UserServiceImp implements UserService {
     @Override
     public boolean updateUser(User user) {
         return userRepository.save(user) != null;
+    }
+
+    @Override
+    public UserRespone convertUserToUserRespone(User user) {
+        UserRespone userRespone = new UserRespone();
+        userRespone.setUserId(user.getUserId());
+        userRespone.setUserName(user.getUserName());
+        userRespone.setFirstName(user.getFisrtName());
+        userRespone.setLastName(user.getLastName());
+        userRespone.setEmail(user.getEmail());
+        userRespone.setAddress(user.getAddress());
+        userRespone.setPhoneNumber(user.getPhoneNumber());
+        userRespone.setBirthDate(user.getBirthDate());
+        userRespone.setRoleName(user.getRole().getRoleName().name());
+        return null;
     }
 
 }

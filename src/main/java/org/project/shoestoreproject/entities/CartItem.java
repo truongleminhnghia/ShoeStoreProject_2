@@ -26,6 +26,12 @@ public class CartItem {
     @Column(name = "price")
     private double price;
 
+    @Column(name = "color")
+    private String color;
+
+    @Column(name = "size")
+    private int size;
+
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;

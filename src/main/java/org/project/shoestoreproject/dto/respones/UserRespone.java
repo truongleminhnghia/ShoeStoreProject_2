@@ -8,12 +8,13 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @NotBlank
 @Data
 @Builder
 
 public class UserRespone {
-    private String userIdl;
+    private String userId;
     private String userName;
     private String firstName;
     private String lastName;

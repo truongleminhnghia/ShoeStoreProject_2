@@ -4,6 +4,7 @@ import org.project.shoestoreproject.configs.CustomUserDetail;
 import org.project.shoestoreproject.dto.requests.ChangePasswordRequest;
 import org.project.shoestoreproject.dto.requests.UpdateUserRequest;
 import org.project.shoestoreproject.dto.respones.ObjectRespone;
+import org.project.shoestoreproject.dto.respones.UserRespone;
 import org.project.shoestoreproject.entities.User;
 import org.project.shoestoreproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,11 @@ public class UserController {
             User user = userService.getUserByID(userId);
             if(user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ObjectRespone("Failed", "User not exist with ID: " + userId, null));
+            UserRespone userRespone = userService.convertUserToUserRespone(user);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ObjectRespone("Success", "User with IDL " + userId, user));
+                    .body(new ObjectRespone("Success", "User with IDL " + userId, userRespone));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectRespone("Failedv ", "Erorr" + e.getMessage(), null));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectRespone("Failed", "Erorr" + e.getMessage(), null));
         }
     }
 
@@ -79,7 +81,7 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectRespone("Failed", "old password incorrect", null));
             if(!passwordRequest.getNewPassword().equals(passwordRequest.getConfirmPassword()))
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectRespone("Failed", "password != confirmpassword", null));
-            user.setPassword(passwordRequest.getNewPassword());
+            user.setPassword(bCryptPasswordEncoder.encode(passwordRequest.getNewPassword()));
             userService.save(user);
             return ResponseEntity.status(HttpStatus.OK).body(new ObjectRespone("Success", "Change password successfully with user_id: " + userId, user));
         } catch (Exception e) {
