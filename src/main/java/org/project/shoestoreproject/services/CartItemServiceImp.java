@@ -1,5 +1,6 @@
 package org.project.shoestoreproject.services;
 
+import org.project.shoestoreproject.dto.respones.CartItemRespone;
 import org.project.shoestoreproject.entities.CartItem;
 import org.project.shoestoreproject.repositories.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,18 @@ public class CartItemServiceImp implements CartItemService {
         if (getItem(cartItemId) != null) {
             cartItemRepository.deleteById(cartItemId);
         }
+    }
+
+    @Override
+    public CartItemRespone converToCartItemRespone(CartItem cartItem) {
+        CartItemRespone cartItemRespone = new CartItemRespone();
+        cartItemRespone.setCartItemId(cartItem.getCartItemId());
+        cartItemRespone.setProductId(cartItem.getProduct().getProductId());
+        cartItemRespone.setProductName(cartItem.getProduct().getProductName());
+        cartItemRespone.setQuantity(cartItem.getQuantity());
+        cartItemRespone.setPrice(cartItem.getPrice());
+        cartItemRespone.setColor(cartItem.getColor());
+        cartItemRespone.setSize(cartItem.getSize());
+        return cartItemRespone;
     }
 }
