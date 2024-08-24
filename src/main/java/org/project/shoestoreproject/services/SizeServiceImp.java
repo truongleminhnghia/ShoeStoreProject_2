@@ -104,7 +104,7 @@ public class SizeServiceImp implements SizeService {
         List<SizeRespone> sizeRespones = new ArrayList<>();
         for (Size size: sizes) {
             SizeRespone sizeRespone = new SizeRespone();
-            sizeRespone.setSizeId(size.getSizeID());
+            sizeRespone.setSizeId(size.getSizeId());
             sizeRespone.setSizeValue(size.getSizeValue());
             sizeRespone.setQuantity(size.getQuantity());
             sizeRespones.add(sizeRespone);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -48,11 +49,11 @@ public class Product extends BaseEntity {
     private List<Image> images =  new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
-    private List<Size> sizes=  new ArrayList<>();
+    private Set<ProductSize> sizes = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
     private List<Feedback> feedbacks = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductColor> productColor;
+    private Set<ProductColor> productColor = new HashSet<>();
 }
