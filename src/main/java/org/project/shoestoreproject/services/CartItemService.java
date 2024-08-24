@@ -10,6 +10,8 @@ public interface CartItemService {
     public CartItem getItem(int cartItemId);
     public List<CartItem> getAllByCart(int cartId);
     public CartItem updateCartItem(int cartItemId, CartItem cartItem);
-    public void deleteCartItem(int cartItemId);
+    public boolean deleteCartItem(int cartItemId);
     public CartItemRespone converToCartItemRespone(CartItem cartItem);
+    public void updateSizeIncart(CartItem cartItem, int value);
+    public void updateColorIncart(CartItem cartItem, String color);
 }

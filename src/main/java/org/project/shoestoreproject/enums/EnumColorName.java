@@ -1,0 +1,17 @@
+package org.project.shoestoreproject.enums;
+
+public enum EnumColorName {
+    COLOR_RED,
+    COLOR_GREEN,
+    COLOR_BLUE,
+    COLOR_YELLOW,
+    COLOR_ORANGE,
+    COLOR_WHITE,
+    COLOR_BLACK,
+    COLOR_BLACK_WHITE,
+    COLOR_BLACK_PINK,
+    COLOR_BLACK_PURPLE,
+    COLOR_BLACK_PINK_WHITE,
+    COLOR_BLACK_PINK_PURPLE,
+    COLOR_BLACK_PINK_PURPLE_WHITE
+}

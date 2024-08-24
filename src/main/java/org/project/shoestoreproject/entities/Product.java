@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -30,9 +31,6 @@ public class Product extends BaseEntity {
     @Column(name = "description", columnDefinition = "NVARCHAR(500)")
     private String description;
 
-    @Column(name = "color", columnDefinition = "NVARCHAR(100)")
-    private String color;
-
     @Column(name = "brand", columnDefinition = "NVARCHAR(300)")
     private String brand;
 
@@ -54,4 +52,7 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product")
     private List<Feedback> feedbacks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<ProductColor> productColor;
 }
